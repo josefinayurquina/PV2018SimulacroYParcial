@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>TODO supply a title</title>
+    </h:head>
+    <h:body>
+        <p:panel id="pnlPrincipal" header="Tabla de Libros">
+            <h:form id="frmBtns">
+                <p:growl id="mensajes" showDetail="true"/>
+                <p:panelGrid id="plbtns" columns="2">
+                    <p:commandButton id="btnAgregar" value="Crear un nuevo Libro" onclick="PF('diagAg').show();"/>
+                    <p:outputLabel/>
+                    <p:outputLabel id="txttitulo" value="INGRESAR TITULO DEL LIBRO A BUSCAR"/>
+                    <p:inputText id="libBuscado" value="#{libroFormBean.bl}"/>
+                    <p:commandButton id="btnReiniciar" value="Reiniciar Lista" ajax="false" actionListener="#{libroFormBean.reiniciarLista()}" update="pnlTabla"/>
+                    <p:commandButton id="bBuscado" value="Buscar Libro" ajax="false" actionListener="#{libroFormBean.buscarLibro()}" update="pnlTabla"/>
+                    <p:dialog id="dialogoAgregar" widgetVar="diagAg">
+                        <p:panelGrid id="panelAgregar" columns="2">
+                            <p:outputLabel for="nombre" value="Nombre"/>
+                            <p:inputText id="nombre" value="#{libroFormBean.nomL}" required="true"/>
+                            <p:outputLabel for="autor" value="Autor"/>
+                            <p:inputText id="autor" value="#{libroFormBean.autor}" required="true"/>
+                            <p:outputLabel for="codigo" value="Codigo"/>
+                            <p:inputText id="codigo" value="#{libroFormBean.cod}" required="true"/>
+                            <p:commandButton id="btnConfimarAg" value="Agregar" ajax="false" actionListener="#{libroFormBean.agregarLibro()}"
+                                             oncomplete="PF('diagAg').hide();" update="pnlPTabla"/>
+                            
+                            
+                        </p:panelGrid>
+                    </p:dialog>
+                                     
+                </p:panelGrid>
+                <p:panelGrid id="pnlPTabla" columns="3">
+                    <p:dataTable id="tblLibros" value="#{libroFormBean.libros.lista}" var="elLibro">
+                        <p:column id="txtN" headerText="Nombre">
+                            <p:outputLabel value="#{elLibro.nombreLibro}"/>
+                        </p:column>
+                        <p:column id="txtA" headerText="Autor">
+                            <p:outputLabel value="#{elLibro.autor}"/>
+                        </p:column>
+                        <p:column id="txtC" headerText="Codigo">
+                            <p:outputLabel value="#{elLibro.codigo}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panelGrid>
+            </h:form>
+        </p:panel>
+        
+    </h:body>
+</html>
