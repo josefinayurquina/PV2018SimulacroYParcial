@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+       <p:panel id="pnlCuadrado" header="Parcial: punto dos" footer="EdM 2018">
+            <h:form id="frmCuadrado">
+                <p:panelGrid id="tblCuadrado" columns="2">
+                    <p:outputLabel id="lado" value="Ingresar Lado a Calcular: "/>
+                    <p:inputNumber id="txtLado" decimalPlaces="2" thousandSeparator="." decimalSeparator="," 
+                                   value="#{cuadradoFormBean.a}"/>
+
+                    <p:commandButton id="btnIngresar" update="tblListadoCuadrados" 
+                                     actionListener="#{cuadradoFormBean.ingresarC()}" value="Ingresar"/>
+                </p:panelGrid>
+                <p:panelGrid id="tblListadoCuadrados" columns="4">
+                    <p:dataTable id="dtbCuadrados" 
+                                 value="#{cuadradoFormBean.listaCuadrado.listado}" var="cuadrado" 
+                                 emptyMessage="No hay Nada">
+                        <p:column headerText="Lado">
+                                  <p:outputLabel value="#{cuadrado.a}"/>
+                        </p:column>
+                        <p:column headerText="Perimetro">
+                                  <p:outputLabel value="#{cuadrado.per}"/>
+                        </p:column>
+                        <p:column headerText="Superficie">
+                                  <p:outputLabel value="#{cuadrado.sup}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panelGrid>
+                
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
+
