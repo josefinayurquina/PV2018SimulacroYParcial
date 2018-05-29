@@ -8,8 +8,10 @@ package aplicacion.control;
 import aplicacion.modelo.datos.ListaCuadrado;
 import aplicacion.modelo.dominio.Cuadrado;
 import java.io.Serializable;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -23,7 +25,8 @@ public class CuadradoFormBean implements Serializable {
     private double a;
     private double per;
     private double sup;
-
+    private Cuadrado objcuadrado = new Cuadrado();
+    
     public CuadradoFormBean() {
         listaCuadrado=new ListaCuadrado();
         cuadrado=new Cuadrado();
@@ -40,8 +43,22 @@ public class CuadradoFormBean implements Serializable {
         cuadrado=new Cuadrado(getA(),getPer(),getSup());
     }
     
-    
+    public void reiniciarLista(){
+        FacesMessage message=new FacesMessage("Se reinicio la lista");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        listaCuadrado = new ListaCuadrado();
+    }
    
+    public void modificar()
+    {
+    
+        getObjcuadrado().setA(a);
+    }
+    public void elejirCuadrado(Cuadrado Elejido){
+       
+        setObjcuadrado(Elejido);
+      a=getObjcuadrado().getA();
+    }
 
     /**
      * @return the unCuadrado
@@ -116,6 +133,20 @@ public class CuadradoFormBean implements Serializable {
      */
     public void setSup(double sup) {
         this.sup = sup;
+    }
+
+    /**
+     * @return the objcuadrado
+     */
+    public Cuadrado getObjcuadrado() {
+        return objcuadrado;
+    }
+
+    /**
+     * @param objcuadrado the objcuadrado to set
+     */
+    public void setObjcuadrado(Cuadrado objcuadrado) {
+        this.objcuadrado = objcuadrado;
     }
     
 }

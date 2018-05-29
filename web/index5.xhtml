@@ -16,6 +16,7 @@
 
                     <p:commandButton id="btnIngresar" update="tblListadoCuadrados" 
                                      actionListener="#{cuadradoFormBean.ingresarC()}" value="Ingresar"/>
+                    <p:commandButton id="btnReiniciar" value="Actualizar" ajax="false" actionListener="#{cuadradoFormBean.reiniciarLista()}" update="pnlTabla"/>
                 </p:panelGrid>
                 <p:panelGrid id="tblListadoCuadrados" columns="4">
                     <p:dataTable id="dtbCuadrados" 
@@ -30,10 +31,32 @@
                         <p:column headerText="Superficie">
                                   <p:outputLabel value="#{cuadrado.sup}"/>
                         </p:column>
+                        <p:column >
+                  <p:commandButton update="@([id$=carse]) " actionListener="#{cuadradoFormBean.elejirCuadrado(cuadrado)}"   value="modificar" oncomplete="PF('dlg').show()">
+                  </p:commandButton>
+              </p:column>
                     </p:dataTable>
                 </p:panelGrid>
                 
             </h:form>
+           <p:dialog header="Cuadrado"  widgetVar="dlg" closable="false" >
+            <h:form id="carse1">
+            <p:growl id="mensajes"/>
+             <p:panelGrid id="carse"  columns="2" columnClasses="label,value">
+                 <p:outputLabel value="Lado:" for="txtpatente"/>
+                 <p:inputText id="txtpatente" value="#{cuadradoFormBean.objcuadrado.a}" required="true"/>
+                
+              
+             </p:panelGrid>
+            <p:commandButton  value="Aceptar" actionListener="#{cuadradoFormBean.modificar()}"  update="mensajes " style="margin-top: 5px" />
+            <p:commandButton value="Cerrar" update="@([id$=basicDT])"    oncomplete="PF('dlg').hide()" style="margin-top: 5px">
+            </p:commandButton>
+            </h:form>
+          </p:dialog>
+                   
+              
+                
+            
         </p:panel>
     </h:body>
 </html>
